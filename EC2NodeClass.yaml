@@ -24,7 +24,6 @@ spec:
   - id: subnet-xxxxxxxxxxxxxxxxx
   - id: subnet-yyyyyyyyyyyyyyyyy
   tags:
-    Confidentiality: Low Risk
     Name: eks-worker-node-k8s
     asg: eks-worker-node-k8s
   userData: |
