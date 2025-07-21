@@ -23,7 +23,7 @@ locals {
 ################################################################################
 
 module "karpenter" {
-  source                          = "../"
+  source                          = "../modules/"
   cluster_name                    = data.aws_eks_cluster.cluster.name
   enable_v1_permissions           = true
   node_iam_role_use_name_prefix   = false
