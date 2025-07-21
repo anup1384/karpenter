@@ -1,0 +1,36 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: bottlerocket-arm64
+spec:
+  amiFamily: Bottlerocket
+  amiSelectorTerms:
+  - id: "ami-09b0b78ba4e0faf01" # Bottlerocket ARM64 AMI for EKS 1.32
+  blockDeviceMappings:
+  - deviceName: /dev/xvda
+    ebs:
+      deleteOnTermination: true
+      volumeSize: 50Gi
+      volumeType: gp3
+  metadataOptions:
+    httpEndpoint: enabled
+    httpProtocolIPv6: disabled
+    httpPutResponseHopLimit: 2
+    httpTokens: required
+  role: eks-worker-node-k8s
+  securityGroupSelectorTerms:
+  - id: sg-zzzzzzzzzzzzzzzzz
+  subnetSelectorTerms:
+  - id: subnet-xxxxxxxxxxxxxxxxx
+  - id: subnet-yyyyyyyyyyyyyyyyy
+  tags:
+    Confidentiality: Low Risk
+    Name: eks-worker-node-k8s
+    asg: eks-worker-node-k8s
+  userData: |
+    [settings.host-containers.admin]
+    enabled = true
+    [settings.host-containers.control]
+    enabled = true
+    [settings.kubernetes.node-labels]
+    'nodegroup' = 'eks-worker-node-k8s'
